@@ -1,7 +1,6 @@
 <template>
     <div>
         {{key}}
-        <router-view></router-view>
     </div>
 </template>
 
@@ -9,7 +8,7 @@
     export default {
         data() {
             return {
-                key: 'hello world'
+                key: '注册'
             }
         },
     }
