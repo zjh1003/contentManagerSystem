@@ -3,6 +3,8 @@ node_modules
 dist
 .*
 
+hah
+
 #不忽略的文件
 !.gitignore
 !.babelrc
