@@ -26,6 +26,8 @@ import 'normalize.css'
 //使用element-ui
 Vue.use(ElementUI)
 
+import './less/login.less'
+
 new Vue({
    el:'#app',
     router:vueRouter,
