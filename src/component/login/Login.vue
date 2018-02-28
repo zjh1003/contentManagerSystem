@@ -57,6 +57,7 @@
             this.$http.post(this.$api.login,this.ruleForm2).then((res)=>{
                 // console.log(res.data);
                 if(res.data.status==0){
+                    localStorage.setItem('uname',res.data.message.uname)
                     this.open()
                     this.$router.push({ name: 'admin' })
                 }else{
