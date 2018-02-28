@@ -1,10 +1,12 @@
 <template>
-        <router-view></router-view>
+    <div>
+        侧边
+    </div>
 </template>
 
 <script>
     export default {
-       
+        
     }
 </script>
 

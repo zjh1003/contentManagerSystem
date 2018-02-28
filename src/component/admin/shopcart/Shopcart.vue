@@ -1,16 +1,12 @@
 <template>
     <div>
-        {{key}}
+        购物车
     </div>
 </template>
 
 <script>
     export default {
-        data() {
-            return {
-                key: '注册'
-            }
-        },
+        
     }
 </script>
 
