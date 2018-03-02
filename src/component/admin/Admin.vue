@@ -45,7 +45,7 @@
                 text-align: right;
             }
             .el-aside {
-                background-color: #D3DCE6;
+                background-color: #434a50;
                 color: #333;
             }
             .el-main {
