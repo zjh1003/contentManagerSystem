@@ -14,7 +14,7 @@
             <el-button icon="el-icon-circle-check-outline" size="mini" plain>全选</el-button>
             <el-button icon="el-icon-delete" size="mini" plain>删除</el-button>
             <div class="list_btns_search">
-                <el-input size="mini" placeholder="请输入搜索内容">
+                <el-input size="mini" v-model="query.searchvalue" @blur="search" placeholder="请输入搜索内容">
                     <i slot="prefix" class="el-input__icon el-icon-search"></i>
                 </el-input>
             </div>
@@ -92,7 +92,17 @@
 <script>
     export default {
         data() {
+
       return {
+
+          //搜索
+          query:{
+              pageIndex:1,
+              pageSize:10,
+              searchvalue:''
+          },
+        
+        //表格数据
         tableData3: [{
           date: '2016-05-03',
           name: '王小虎',
@@ -120,12 +130,16 @@
     },
 
     methods: {
-        // add(scope){
-        //     console.log(scope);
-            
-        // },
+       //搜索
+       search(){
+           this.getGoodsData();
+       },
+       //获取商品数据
       getGoodsData(){
-          this.$http.get(this.$api.gsList + '?pageIndex=1&pageSize=10').then((res)=>{
+          var searchdata = `?pageIndex=${this.query.pageIndex}&pageSize=${this.query.pageSize}&searchvalue=${this.query.searchvalue}`
+          console.log(searchdata);
+          
+          this.$http.get(this.$api.gsList + searchdata).then((res)=>{
             //   console.log(res.data.message);
             if(res.data.status == 0){
                 this.tableData3 = res.data.message;//表格的数据会自动覆盖
