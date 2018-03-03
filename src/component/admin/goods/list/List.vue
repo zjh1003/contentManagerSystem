@@ -11,7 +11,7 @@
         <!-- 按钮组和搜索框 -->
         <div class="list_btns">
             <el-button icon="el-icon-circle-plus-outline" size="mini" plain>新增</el-button>
-            <el-button icon="el-icon-circle-check-outline" size="mini" plain>全选</el-button>
+            <el-button icon="el-icon-circle-check-outline" @click="selectAll" size="mini" plain>全选</el-button>
             <el-button icon="el-icon-delete" size="mini" @click="del" plain>删除</el-button>
             <div class="list_btns_search">
                 <el-input size="mini" v-model="query.searchvalue" @blur="search" placeholder="请输入搜索内容">
@@ -35,39 +35,32 @@
 
             <el-table-column label="标题" show-overflow-tooltip>
                 <template slot-scope="scope">
-                    <router-link style="color:#2a72c5" :to="{ name:'goodsdetail' }">{{ scope.row.title }}</router-link>  
+                     <el-tooltip class="item" effect="dark"  placement="left">
+                         <div slot="content">
+                             <img style="width:200px" :src="scope.row.imgurl" alt="图片预览">
+                         </div>
+                          <router-link style="color:#2a72c5" :to="{ path: `/admin/goods/detail/${scope.row.id}` }">{{ scope.row.title }}</router-link>  
+                    </el-tooltip>
                 </template>
             </el-table-column>
 
-            <el-table-column
-                prop="categoryname"
-                label="所属类别"
-                width="120">
-            </el-table-column>
+            <el-table-column prop="categoryname" label="所属类别" width="120"></el-table-column>
 
-            <el-table-column
-                prop="stock_quantity"
-                label="库存"
-                width="120">
-            </el-table-column>
+            <el-table-column prop="stock_quantity" label="库存" width="120"></el-table-column>
 
-            <el-table-column
-                prop="market_price"
-                label="市场价"
-                width="120">
-            </el-table-column>
+            <el-table-column prop="market_price" label="市场价" width="120"></el-table-column>
 
-            <el-table-column
-                prop="sell_price"
-                label="销售价"
-                width="120">
-            </el-table-column>
+            <el-table-column prop="sell_price" label="销售价" width="120"></el-table-column>
 
-            <el-table-column
-                show-overflow-tooltip
-                width="120"
-                label="属性">
-                 <template slot-scope="scope">图标</template>
+            <el-table-column show-overflow-tooltip width="120" label="属性">
+                 <template slot-scope="scope">
+                     <!-- 轮播图: is_slide -->
+                     <span :class="['el-icon-picture', scope.row.is_slide==1?'active':'']"></span>
+                     <!-- 置顶: is_top -->
+                     <span :class="['el-icon-upload', scope.row.is_top==1?'active':'']"></span>
+                     <!-- 热点: is_hot -->
+                     <span :class="['el-icon-star-off', scope.row.is_hot==1?'active':'']"></span>
+                 </template>
             </el-table-column>
 
             <el-table-column label="操作" width="120">
@@ -123,6 +116,11 @@
     },
 
     methods: {
+        //全选
+        selectAll(){
+            document.querySelector('.el-checkbox__original').click();
+        },
+
         //选择项
         handleSelectionChange(selection){
             // console.log(selection);
@@ -153,18 +151,6 @@
           }); 
                 })
             })
-
-
-            // var ids = this.selectedList.map(v=>v.id);//遍历,返回一个新的数组，拿到id
-            // // console.log(ids);
-            
-            // this.$http.get(this.$api.gsDel+ids).then((res)=>{
-            //     if(res.data.status == 0){
-            //         this.$alert('删除成功','提示',{
-
-            //         })
-            //     }
-            // })
         },
 
        //搜索
