@@ -69,7 +69,17 @@
                 </template>
             </el-table-column>
         </el-table>
+
         <!-- 分页 -->
+        <!-- total用来设定数据总数, current-page用来设定当前页, page-size用来设定当前每页数量  -->
+        <el-pagination
+            @size-change="handleSizeChange" @current-change="handleCurrentChange"
+            :current-page="query.pageIndex"
+            :page-sizes="[2,3,4,5,6,7,8]"
+            :page-size="query.pageSize"
+            layout="total, sizes, prev, pager, next, jumper"
+            :total="query.total">
+        </el-pagination>
     </div>
 </template>
 
@@ -82,8 +92,9 @@
           //搜索
           query:{
               pageIndex:1,
-              pageSize:10,
-              searchvalue:''
+              pageSize:2,
+              searchvalue:'',
+              total:''
           },
         //被选择项，
         selectedList:[],
@@ -116,6 +127,19 @@
     },
 
     methods: {
+        //监听当前页的改变
+        handleCurrentChange(page){
+            this.query.pageIndex = page;//当前页重新赋值
+
+            this.getGoodsData();//表格重新渲染
+        },
+
+        //监听每页的条数的变化
+        handleSizeChange(size){
+            this.query.pageSize = size;
+            this.getGoodsData();
+        },
+
         //全选
         selectAll(){
             document.querySelector('.el-checkbox__original').click();
@@ -144,13 +168,13 @@
                         });
                         this.getGoodsData();
                     }
-                }).catch(()=>{
+                })
+            }).catch(()=>{
                       this.$message({
-            type: 'info',
-            message: '已取消删除'
+                      type: 'info',
+                      message: '已取消删除'
           }); 
                 })
-            })
         },
 
        //搜索
@@ -166,6 +190,8 @@
             //   console.log(res.data.message);
             if(res.data.status == 0){
                 this.tableData3 = res.data.message;//表格的数据会自动覆盖
+                //获取总条数,给分页组件
+                this.query.total = res.data.totalcount;
             }
           })
       },
@@ -179,10 +205,6 @@
           this.$refs.multipleTable.clearSelection();
         }
       },
-
-    //   handleSelectionChange(val) {
-    //     this.multipleSelection = val;
-    //   }
     }
     }
 </script>
