@@ -11,6 +11,7 @@
                 <i class="el-icon-message"></i>
                 <span>{{item.title}}</span>
             </template>
+            
             <el-menu-item index="1-1" v-for="subItem in item.children" :key="subItem.title"  >
                 <router-link :to="subItem.path">
                     <i class="el-icon-document"></i>

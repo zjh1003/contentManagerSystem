@@ -123,7 +123,7 @@
             onSubmit() {
                 this.$http.post(this.$api.gsEdit+this.id,this.form).then(res=>{
                     if(res.data.status == 0){
-                        this.$alert("保存成功")
+                        this.$alert("保存成功 ")
                     }
                 })
             },

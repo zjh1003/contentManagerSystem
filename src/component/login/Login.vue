@@ -59,7 +59,10 @@
                 if(res.data.status==0){
                     localStorage.setItem('uname',res.data.message.uname)
                     this.open()
-                    this.$router.push({ name: 'admin' })
+                    // 登陆成功后, 跳转到用户未登陆前要访问的页面
+                    //如果url地址栏有要访问的详细路径，则登录成功后调到详细路径页面
+                    //如果没有 则直接调到后台的主页面
+                    this.$router.push({ path: this.$route.query.next || '/admin' })
                 }else{
                     this.$alert(res.data.message)
                 }
